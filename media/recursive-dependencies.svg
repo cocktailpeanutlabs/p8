@@ -1,0 +1,88 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1L11 6L1 11Z" fill="#7dd3fc"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1L11 6L1 11Z" fill="#22c55e"/>
+    </marker>
+    <linearGradient id="panel" x1="64" y1="112" x2="1216" y2="656" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101720"/>
+      <stop offset="1" stop-color="#0A0F16"/>
+    </linearGradient>
+    <filter id="shadow" x="-8%" y="-12%" width="116%" height="132%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <style>
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 780; }
+      .subtitle { fill: #a7b0bf; font-size: 20px; font-weight: 560; }
+      .panel-title { fill: #cbd5e1; font-size: 17px; font-weight: 780; text-transform: uppercase; }
+      .app { fill: #f8fafc; font-size: 32px; font-weight: 820; }
+      .step { fill: #7dd3fc; font-size: 15px; font-weight: 780; }
+      .ready { fill: #22c55e; font-size: 15px; font-weight: 780; }
+      .step-title { fill: #f8fafc; font-size: 26px; font-weight: 800; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" fill="#080C12"/>
+  <path d="M64 96H1216" stroke="#1C2633"/>
+  <text x="64" y="60" class="title">Recursive Dependencies</text>
+  <text x="64" y="88" class="subtitle">Pinokio starts the deepest dependencies first.</text>
+
+  <rect x="64" y="122" width="520" height="534" rx="14" fill="url(#panel)" stroke="#1E2937"/>
+  <text x="92" y="160" class="panel-title">Requires</text>
+
+  <g filter="url(#shadow)">
+    <rect x="238" y="210" width="172" height="82" rx="14" fill="#121A24" stroke="#273446"/>
+    <text x="324" y="263" text-anchor="middle" class="app">A</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="238" y="360" width="172" height="82" rx="14" fill="#121A24" stroke="#273446"/>
+    <text x="324" y="413" text-anchor="middle" class="app">B</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="126" y="510" width="172" height="82" rx="14" fill="#121A24" stroke="#273446"/>
+    <text x="212" y="563" text-anchor="middle" class="app">C</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="350" y="510" width="172" height="82" rx="14" fill="#121A24" stroke="#273446"/>
+    <text x="436" y="563" text-anchor="middle" class="app">D</text>
+  </g>
+
+  <path d="M324 306V338" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <path d="M324 454V472" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"/>
+  <path d="M212 472H436" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"/>
+  <path d="M212 472V500" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <path d="M436 472V500" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+
+  <rect x="616" y="122" width="600" height="534" rx="14" fill="url(#panel)" stroke="#1E2937"/>
+  <text x="644" y="160" class="panel-title">Launch order</text>
+
+  <g filter="url(#shadow)">
+    <rect x="804" y="222" width="196" height="96" rx="14" fill="#102018" stroke="#2F5B3A"/>
+    <text x="840" y="258" class="ready">1</text>
+    <text x="840" y="292" class="step-title">C + D</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="842" y="374" width="120" height="96" rx="14" fill="#102018" stroke="#2F5B3A"/>
+    <text x="894" y="410" class="ready">2</text>
+    <text x="890" y="444" class="step-title">B</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="842" y="526" width="120" height="96" rx="14" fill="#121A24" stroke="#273446"/>
+    <text x="894" y="562" class="step">3</text>
+    <text x="890" y="596" class="step-title">A</text>
+  </g>
+
+  <path d="M902 330V362" stroke="#22c55e" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+  <path d="M902 482V514" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+</svg>

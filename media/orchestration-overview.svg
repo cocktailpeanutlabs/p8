@@ -1,0 +1,100 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1L11 6L1 11Z" fill="#7dd3fc"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1L11 6L1 11Z" fill="#22c55e"/>
+    </marker>
+    <linearGradient id="panel" x1="64" y1="112" x2="1216" y2="656" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101720"/>
+      <stop offset="1" stop-color="#0A0F16"/>
+    </linearGradient>
+    <filter id="shadow" x="-8%" y="-12%" width="116%" height="132%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <style>
+      text {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+        letter-spacing: 0;
+      }
+      .title { fill: #f8fafc; font-size: 38px; font-weight: 780; }
+      .subtitle { fill: #a7b0bf; font-size: 20px; font-weight: 560; }
+      .lane-title { fill: #cbd5e1; font-size: 17px; font-weight: 780; text-transform: uppercase; }
+      .card-title { fill: #f8fafc; font-size: 25px; font-weight: 780; }
+      .step { fill: #7dd3fc; font-size: 15px; font-weight: 780; }
+      .ready { fill: #22c55e; font-size: 15px; font-weight: 780; }
+      .chip { fill: #c4b5fd; font-size: 14px; font-weight: 760; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="720" fill="#080C12"/>
+  <path d="M64 96H1216" stroke="#1C2633"/>
+  <text x="64" y="60" class="title">Orchestration</text>
+  <text x="64" y="88" class="subtitle">Save dependencies once. Pinokio launches them first.</text>
+
+  <rect x="64" y="122" width="1152" height="200" rx="14" fill="url(#panel)" stroke="#1E2937"/>
+  <text x="92" y="160" class="lane-title">1. Setup</text>
+
+  <g filter="url(#shadow)">
+    <rect x="112" y="206" width="278" height="82" rx="11" fill="#121A24" stroke="#273446"/>
+    <rect x="136" y="228" width="38" height="38" rx="9" fill="#0EA5E9"/>
+    <path d="M146 247H164M155 238V256" stroke="#E0F2FE" stroke-width="3" stroke-linecap="round"/>
+    <text x="196" y="256" class="card-title">Ideogrammar</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="506" y="206" width="190" height="82" rx="11" fill="#0F1620" stroke="#284156"/>
+    <text x="548" y="256" class="card-title">Requires</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="812" y="206" width="278" height="82" rx="11" fill="#121A24" stroke="#273446"/>
+    <rect x="836" y="228" width="38" height="38" rx="9" fill="#22C55E"/>
+    <path d="M847 247L854 254L866 239" stroke="#DCFCE7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="896" y="256" class="card-title">ComfyUI</text>
+  </g>
+
+  <path d="M416 247H482" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <path d="M716 247H788" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <rect x="1094" y="228" width="82" height="38" rx="19" fill="#111827" stroke="#273446"/>
+  <text x="1117" y="252" class="chip">Saved</text>
+
+  <rect x="64" y="352" width="1152" height="304" rx="14" fill="url(#panel)" stroke="#1E2937"/>
+  <text x="92" y="390" class="lane-title">2. Launch</text>
+
+  <g filter="url(#shadow)">
+    <rect x="92" y="468" width="204" height="92" rx="12" fill="#121A24" stroke="#273446"/>
+    <text x="120" y="500" class="step">Request</text>
+    <text x="120" y="532" class="card-title">Ideogrammar</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="366" y="468" width="178" height="92" rx="12" fill="#0F1620" stroke="#284156"/>
+    <text x="408" y="500" class="step">Resolve</text>
+    <text x="408" y="532" class="card-title">Pinokio</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="618" y="468" width="190" height="92" rx="12" fill="#121A24" stroke="#273446"/>
+    <text x="646" y="500" class="step">Start first</text>
+    <text x="646" y="532" class="card-title">ComfyUI</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="872" y="468" width="138" height="92" rx="12" fill="#102018" stroke="#2F5B3A"/>
+    <text x="910" y="500" class="ready">Wait</text>
+    <text x="908" y="532" class="card-title">Ready</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="1036" y="468" width="172" height="92" rx="12" fill="#121A24" stroke="#273446"/>
+    <text x="1064" y="500" class="step">Then</text>
+    <text x="1064" y="532" class="card-title">Ideogrammar</text>
+  </g>
+
+  <path d="M314 514H352" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <path d="M562 514H604" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <path d="M824 514H858" stroke="#22c55e" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-green)"/>
+  <path d="M1018 514H1026" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+</svg>
