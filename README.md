@@ -9,7 +9,7 @@ render_with_liquid: false
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.15](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.15)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.18](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.18)
 
 # Migrate to Open License Conda
 
@@ -244,7 +244,7 @@ Ask AI was also redesigned as an in-app drawer. Users can search terminal agents
 
 # API Updates
 
-Pinokio 8 adds API and template features for the launcher patterns that changed in this release: passing long prompts to local agents, opening native desktop tools from Pinokio, keeping externally launched tools visible in the footer, and routing PyTorch installs by detected GPU hardware.
+Pinokio 8 adds API and template features for the launcher patterns that changed in this release: passing long prompts to local agents, handling Hugging Face login and repository uploads, opening native desktop tools from Pinokio, keeping externally launched tools visible in the footer, and routing PyTorch installs by detected GPU hardware.
 
 ## `shell.run` Structured Arguments
 
@@ -291,6 +291,51 @@ Practical agent example:
 ```
 
 If a structured argument renders to multiple lines, Pinokio moves it into a generated `PINOKIO_ARG_*` environment variable and references it safely for Bash, PowerShell, or `cmd.exe`. Raw string commands still behave as before. The terminal preview redacts generated `PINOKIO_ARG_*` values into line-count summaries so large prompts do not flood logs.
+
+## `hf.login`
+
+Launchers can now handle Hugging Face authentication through a first-class Pinokio API instead of asking users to run `hf login` by hand. `hf.login` starts the managed Hugging Face device login provider. By default it checks for an existing saved token, copies the device code when available, shows a blocking login modal, waits for Hugging Face authorization to finish, and returns success without exposing the token value.
+
+Default login flow:
+
+```js
+{
+  method: "hf.login"
+}
+```
+
+Customized login flow:
+
+```js
+{
+  method: "hf.login",
+  params: {
+    timeout: 120000,
+    interval: 2000
+  }
+}
+```
+
+Launcher authors can set `force: true` to require a fresh login, or use `modal: false`, `open: false`, `clipboard: false`, and `wait: false` for custom flows.
+
+## `hf.upload`
+
+Launchers can now publish generated files to Hugging Face through a first-class Pinokio API. `hf.upload` wraps the Hugging Face CLI `hf upload` command with structured arguments. Positional upload arguments go in `params._`, flags use normal object keys, and `path` / `env` stay available for the shell context:
+
+```js
+{
+  method: "hf.upload",
+  params: {
+    path: "{{cwd}}/output",
+    _: ["username/my-dataset", "./output", "."],
+    "repo-type": "dataset",
+    private: true,
+    "commit-message": "initial upload"
+  }
+}
+```
+
+This pairs with `hf.login` and `hf.download` so an app can authenticate, fetch gated assets, and publish generated files without each launcher reinventing Hugging Face CLI setup.
 
 ## `uri.open`
 
