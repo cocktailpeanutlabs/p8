@@ -5,6 +5,7 @@ description: Release notes for Pinokio 8.0.0 Candidate Beta
 permalink: /
 has_toc: false
 render_with_liquid: false
+section_nav_depth: 2
 ---
 
 # Download Pinokio 8.0.0 Candidate Beta
@@ -732,3 +733,8 @@ Hugging Face login now uses a native device-authorization flow inside Pinokio, w
 Pinokio now ships managed skills that can be synced into local agent skill folders. The Skills page shows the source library, sync targets, validity, conflicts, and ON/OFF state for each managed skill. Built-in `pinokio` and `gepeto` skills can be disabled without deleting their source copies, and additional skills can be downloaded from a Git URL.
 
 ![Managed skills page with sync targets and toggles](media/skills-management.png)
+
+# Versions
+
+## 7.5.20
+
