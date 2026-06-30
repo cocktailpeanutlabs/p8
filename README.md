@@ -9,7 +9,7 @@ render_with_liquid: false
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.18](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.18)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.19](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.19)
 
 # Migrate to Open License Conda
 
