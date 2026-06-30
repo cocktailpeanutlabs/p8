@@ -9,7 +9,7 @@ render_with_liquid: false
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.14](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.14)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.15](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.15)
 
 # Migrate to Open License Conda
 
@@ -244,7 +244,7 @@ Ask AI was also redesigned as an in-app drawer. Users can search terminal agents
 
 # API Updates
 
-Pinokio 8 adds API and template features for the launcher patterns that changed in this release: passing long prompts to local agents, opening native desktop tools from Pinokio, keeping externally launched tools visible in the footer, and routing PyTorch installs by detected hardware.
+Pinokio 8 adds API and template features for the launcher patterns that changed in this release: passing long prompts to local agents, opening native desktop tools from Pinokio, keeping externally launched tools visible in the footer, and routing PyTorch installs by detected GPU hardware.
 
 ## `shell.run` Structured Arguments
 
@@ -380,11 +380,64 @@ If no time or condition is provided, the wait is indefinite and ends when the us
 ]
 ```
 
+## GPU template variables
+
+Pinokio exposes these GPU-related template variables after sysinfo is available. The table is exhaustive for variable names and closed value sets; open-ended hardware strings are listed by format.
+
+| Variable | Possible values / format | Meaning |
+| --- | --- | --- |
+| `gpu` | `nvidia`, `amd`, `apple`, `none`, or another lower-case vendor string such as `intel` | Selected primary GPU vendor. |
+| `gpu_model` | Lower-case model string such as `nvidia rtx a4500`, `amd radeon rx 7900 xtx`, `intel arc a770`, `apple m3`; unset when unavailable | Selected primary GPU model. |
+| `gpu_driver` | Driver version string such as `565.90` or `31.0.2`; `null` when unavailable | Driver version for the selected primary GPU. |
+| `gpu_target` | AMD `gfx*` target such as `gfx1030`, `gfx1100`, `gfx1151`, `gfx1201`; NVIDIA `sm_*` target such as `sm_86`, `sm_89`, `sm_120`; `null` for Intel, Apple, unknown, or unresolved GPUs | Concrete architecture target for wheel and kernel routing. |
+| `gpus` | Array of `{ name, model, driver }`, where `name` and `model` are lower-case strings and `driver` is a string or `null` | Normalized list of detected GPU controllers. |
+| `vram` | Integer GB; `0` when unavailable | VRAM for the selected primary GPU. |
+
+## `{{gpu}}`
+
+Templates expose the selected primary GPU vendor as `gpu`.
+
+Use this for broad vendor routing when the install path does not need a specific architecture target. For NVIDIA and AMD wheel routing, combine `gpu` with `gpu_target` or `gpu_driver` when the wheel source requires it.
+
+```js
+{
+  when: "{{gpu === 'nvidia'}}",
+  method: "shell.run",
+  params: {
+    message: "echo NVIDIA GPU selected"
+  }
+}
+```
+
+```js
+{
+  when: "{{gpu === 'intel' && /arc|data center gpu max|gpu max|ponte vecchio/i.test(gpu_model || '')}}",
+  method: "shell.run",
+  params: {
+    message: "echo Intel XPU-capable GPU selected"
+  }
+}
+```
+
 ## `{{gpu_model}}`
 
 Templates now expose the selected primary GPU model as `gpu_model`, such as `nvidia rtx a4500` or `amd radeon rx 7900 xtx`. Pinokio chooses the same primary controller used for `gpu`: NVIDIA first when present, otherwise the highest-VRAM AMD controller, otherwise Apple, otherwise the first detected controller.
 
-Use this when an app needs a model-specific exception, a diagnostics report, or a more precise log message. Do not use `gpu_model` as the main PyTorch install switch; use `torch_backend` for that.
+Use this when an app needs a model-specific exception, a diagnostics report, or a more precise log message. Do not use `gpu_model` regexes to infer AMD `gfx*` or NVIDIA `sm_*` architecture targets when `gpu_target` is available.
+
+For example, `sm_75` covers both RTX 20-series and GTX 16-series GPUs, so a launcher can use `gpu_model` after `gpu_target` narrows the architecture:
+
+```js
+{
+  when: "{{gpu === 'nvidia' && gpu_target === 'sm_75' && /gtx\\s*16/i.test(gpu_model || '')}}",
+  method: "shell.run",
+  params: {
+    message: "echo NVIDIA GTX 16-series selected"
+  }
+}
+```
+
+For diagnostics, pass the model through the environment:
 
 ```js
 {
@@ -398,37 +451,42 @@ Use this when an app needs a model-specific exception, a diagnostics report, or 
 }
 ```
 
-## `{{torch_backend}}`
+## `{{gpu_target}}`
 
-Templates now expose `torch_backend`, a PyTorch install-policy value. It can be `cuda`, `mps`, `rocm`, `xpu`, or `cpu`.
+Templates now expose the selected GPU architecture target as `gpu_target`.
 
-This is the main variable launcher authors should use to choose the PyTorch wheel family. It is based on hardware identity and Pinokio policy, not on runtime probes such as checking whether ROCm, `rocminfo`, `hipInfo`, or Torch already happens to be installed.
+Use `gpu_target` when an app needs architecture-specific PyTorch wheels, compiled extensions, kernels, or compatibility checks. Pinokio exposes the hardware fact; launcher scripts still choose the install command.
 
-The AMD case is why this variable matters. PyTorch ROCm support is not just "vendor is AMD". Discrete cards usually expose useful model names, but APU/iGPU systems can report the GPU as a generic `AMD Radeon Graphics`, while the useful model name or codename appears in the CPU brand instead. The launcher should not have to solve that every time.
+Current target formats:
 
-Pinokio's AMD policy works like this:
+- AMD ROCm targets use `gfx*`, such as `gfx1030`, `gfx1100`, `gfx1151`, and `gfx1201`.
+- NVIDIA CUDA targets use `sm_*`, such as `sm_86`, `sm_89`, and `sm_120`.
+- Intel, Apple, unknown, or unresolved GPUs return `null`.
 
-- Pinokio selects the strongest AMD controller by VRAM when multiple AMD GPUs are present.
-- If the AMD GPU model clearly matches a supported ROCm lane, `torch_backend` becomes `rocm`.
-- If the GPU model is the generic `AMD Radeon Graphics`, Pinokio lazily checks the CPU brand for supported APU/iGPU names and codenames.
-- If the model does not match the ROCm policy, the launcher should not install ROCm wheels.
+AMD target resolution uses a checked-in map generated from AMD's ROCm GPU architecture data. It resolves product names such as Radeon RX 6000, RX 7000, RX 9000, Radeon 780M/890M, and Instinct MI-series models to exact `gfx*` targets. If an APU reports only a generic `AMD Radeon Graphics` model, Pinokio lazily checks the CPU brand and applies the same map.
 
-The AMD ROCm policy currently recognizes:
+NVIDIA target resolution uses a lightweight `nvidia-smi` compute capability query and converts the result to an `sm_*` target. The query is cached for the Pinokio process.
 
-- Radeon RX 7600 and newer families, including RX 7600, 7600 XT, 7600M, 7600M XT, RX 7700, RX 7800, RX 7900, RX 9000, and future RX 8xxx/9xxx names.
-- Radeon PRO W7700 and newer families, including PRO W7700, W7800, W7900, and future PRO W 8xxx/9xxx names.
-- Radeon PRO V710.
-- Radeon AI PRO R9600 and R9700 variants, including suffixes such as R9700S.
-- Supported APU/iGPU names and codenames: `780M`, `820M`, `880M`, `890M`, `8050S`, `8060S`, `Strix`, `Phoenix`, and `Fire Range`.
-
-Launcher authors can therefore write the simple branch and let Pinokio handle the AMD discrete-GPU versus APU/iGPU naming details:
+AMD ROCm example:
 
 ```js
 {
-  when: "{{platform !== 'darwin' && torch_backend === 'rocm'}}",
+  when: "{{platform === 'linux' && gpu === 'amd' && /^gfx103[0-2]$/.test(gpu_target || '')}}",
   method: "shell.run",
   params: {
-    message: "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm6.3"
+    message: "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm7.1"
+  }
+}
+```
+
+NVIDIA architecture example:
+
+```js
+{
+  when: "{{gpu === 'nvidia' && /^(sm_86|sm_89)$/.test(gpu_target || '')}}",
+  method: "shell.run",
+  params: {
+    message: "echo NVIDIA Ampere or Ada target selected"
   }
 }
 ```
@@ -437,7 +495,7 @@ Launcher authors can therefore write the simple branch and let Pinokio handle th
 
 Templates now expose the selected primary GPU driver version as `gpu_driver`. This is a raw string from the selected controller, commonly something like `565.90` or `580.88`.
 
-Use this when the install choice depends on the NVIDIA driver family. The current practical case is CUDA wheel routing: a `cu130` PyTorch/Triton stack can fail on a machine whose NVIDIA driver only supports CUDA 12.x, so launchers need a conservative fallback.
+Use this when the install choice depends on the NVIDIA driver family. The current practical case is CUDA wheel routing: a `cu130` PyTorch/Triton stack can fail on a machine whose NVIDIA driver only supports CUDA 12.x, so launchers need a conservative fallback after confirming the selected GPU is NVIDIA.
 
 `Number.parseFloat(gpu_driver || '0') >= 580` means:
 
@@ -447,9 +505,9 @@ Use this when the install choice depends on the NVIDIA driver family. The curren
 
 The current CUDA wheel routing rules are:
 
-- `torch_backend !== 'cuda'`: do not install a CUDA wheel. Use the `mps`, `rocm`, `xpu`, or `cpu` branch instead.
-- `torch_backend === 'cuda'` and `Number.parseFloat(gpu_driver || '0') >= 580`: use `cu130`.
-- `torch_backend === 'cuda'` and the driver is missing, unreadable, or below `580`: use `cu128`.
+- `gpu !== 'nvidia'`: do not install a CUDA wheel.
+- `gpu === 'nvidia'` and `Number.parseFloat(gpu_driver || '0') >= 580`: use `cu130`.
+- `gpu === 'nvidia'` and the driver is missing, unreadable, or below `580`: use `cu128`.
 
 For this release, the new generic NVIDIA launcher rule only adds the `cu130` / `cu128` split. Older tags such as `cu121`, `cu124`, and `cu126` remain app-specific pins and are not part of the new generic routing rule.
 
@@ -457,7 +515,7 @@ Windows NVIDIA example:
 
 ```js
 {
-  when: "{{platform === 'win32' && torch_backend === 'cuda' && Number.parseFloat(gpu_driver || '0') >= 580}}",
+  when: "{{platform === 'win32' && gpu === 'nvidia' && Number.parseFloat(gpu_driver || '0') >= 580}}",
   method: "shell.run",
   params: {
     message: "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130"
@@ -467,7 +525,7 @@ Windows NVIDIA example:
 
 ```js
 {
-  when: "{{platform === 'win32' && torch_backend === 'cuda' && !(Number.parseFloat(gpu_driver || '0') >= 580)}}",
+  when: "{{platform === 'win32' && gpu === 'nvidia' && !(Number.parseFloat(gpu_driver || '0') >= 580)}}",
   method: "shell.run",
   params: {
     message: "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128"
@@ -479,7 +537,7 @@ Linux NVIDIA example:
 
 ```js
 {
-  when: "{{platform === 'linux' && torch_backend === 'cuda' && Number.parseFloat(gpu_driver || '0') >= 580}}",
+  when: "{{platform === 'linux' && gpu === 'nvidia' && Number.parseFloat(gpu_driver || '0') >= 580}}",
   method: "shell.run",
   params: {
     message: "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130"
@@ -489,7 +547,7 @@ Linux NVIDIA example:
 
 ```js
 {
-  when: "{{platform === 'linux' && torch_backend === 'cuda' && !(Number.parseFloat(gpu_driver || '0') >= 580)}}",
+  when: "{{platform === 'linux' && gpu === 'nvidia' && !(Number.parseFloat(gpu_driver || '0') >= 580)}}",
   method: "shell.run",
   params: {
     message: "uv pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128"
@@ -501,7 +559,17 @@ Linux NVIDIA example:
 
 Templates now expose all detected GPU controllers as `gpus`. Each entry includes `name`, `model`, and `driver`.
 
-Use `gpus` for diagnostics, multi-GPU reporting, or advanced app-specific selection. For normal PyTorch installs, prefer the top-level `torch_backend`, `gpu_model`, and `gpu_driver` variables because they already apply Pinokio's primary-controller selection rules.
+Use `gpus` for diagnostics, multi-GPU reporting, or advanced app-specific selection. For normal PyTorch installs, prefer the top-level `gpu`, `gpu_model`, `gpu_driver`, and `gpu_target` variables because they already apply Pinokio's primary-controller selection rules.
+
+```js
+{
+  when: "{{(gpus || []).some((item) => item.name === 'nvidia')}}",
+  method: "shell.run",
+  params: {
+    message: "echo At least one NVIDIA controller was detected"
+  }
+}
+```
 
 ```js
 {
@@ -511,9 +579,35 @@ Use `gpus` for diagnostics, multi-GPU reporting, or advanced app-specific select
     env: {
       PINOKIO_GPU_MODEL: "{{gpu_model || ''}}",
       PINOKIO_GPU_DRIVER: "{{gpu_driver || ''}}",
-      PINOKIO_TORCH_BACKEND: "{{torch_backend}}",
+      PINOKIO_GPU_TARGET: "{{gpu_target || ''}}",
       PINOKIO_GPUS: "{{JSON.stringify(gpus || [])}}"
     }
+  }
+}
+```
+
+## `{{vram}}`
+
+Templates expose the selected primary GPU VRAM as `vram`, rounded to integer GB. When VRAM is unavailable, `vram` is `0`.
+
+Use this for memory-tier routing or hardware warnings, not for vendor or architecture detection.
+
+```js
+{
+  when: "{{vram >= 16}}",
+  method: "shell.run",
+  params: {
+    message: "echo High-VRAM install path selected"
+  }
+}
+```
+
+```js
+{
+  when: "{{vram > 0 && vram < 8}}",
+  method: "shell.run",
+  params: {
+    message: "echo This app may need at least 8 GB VRAM"
   }
 }
 ```
