@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.21](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.21)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.24](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.24)
 
 # Migrate to Open License Conda
 
@@ -782,3 +782,12 @@ The sidebar toggle now animates between expanded and collapsed states, so the la
 If a user turns `Start with Pinokio` on before choosing a script, Pinokio now selects the app's menu default automatically when one exists. This removes the old warning-only path for launchers that already declare a safe default script, while still asking the user to choose when no default script is available.
 
 ![Autolaunch toggle](media/autolaunch_toggle.gif)
+
+## 7.5.24
+
+### Plugin dashboard refactor
+
+The plugin page automatically closes the terminal after any of the tasks has finished (install/update/uninstall/etc.), and refreshes, letting the user know what to do next.
+
+![plugin_update.gif](plugin_update.gif)
+

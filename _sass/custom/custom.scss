@@ -49,6 +49,12 @@ body {
   margin-top: 2rem;
 }
 
+.main-content h1[id],
+.main-content h2[id],
+.main-content h3[id] {
+  scroll-margin-top: 1rem;
+}
+
 .main-content img {
   display: block;
   width: auto;
