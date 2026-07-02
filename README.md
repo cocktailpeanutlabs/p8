@@ -789,7 +789,7 @@ If a user turns `Start with Pinokio` on before choosing a script, Pinokio now se
 
 The plugin page automatically closes the terminal after any of the tasks has finished (install/update/uninstall/etc.), and refreshes, letting the user know what to do next.
 
-![plugin_update.gif](media/plugin_update.gif)
+![pluginupdate.gif](media/pluginupdate.gif)
 
 
 ## 7.5.26
