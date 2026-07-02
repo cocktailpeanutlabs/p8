@@ -794,6 +794,8 @@ The plugin page automatically closes the terminal after any of the tasks has fin
 
 ## 7.5.26
 
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26)
+
 ### Network discovery fix
 
 Properly find listening services on the machine, not by looking for LISTENING on netstat but by looking at IP
