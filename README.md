@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.24](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.24)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26)
 
 # Migrate to Open License Conda
 
@@ -791,3 +791,25 @@ The plugin page automatically closes the terminal after any of the tasks has fin
 
 ![plugin_update.gif](media/plugin_update.gif)
 
+
+## 7.5.26
+
+### Network discovery fix
+
+Properly find listening services on the machine, not by looking for LISTENING on netstat but by looking at IP
+
+### Network page inline refresh
+
+Previously the network page used to keep hard reloading whenever there's a change. Now they refresh inline without a full page reload.
+
+### Full log report per session
+
+Previously only the LATEST log was included in the "Get help" report section, which would miss a lot of useful logs for reporting.
+
+For example when you run `install.js`, which calls `torch.js`, and then after the install `start.js` is called, all within one run, now all these are grouped into a single session, and included in the final report.
+
+Also the user can flip through sessions to check AND post the logs per session.
+
+### Redaction for global logs page 
+
+The global logs page (which includes files like `state.json`, `stdout.json`, `system.json`, etc.) can now be redacted via privacy filter before creating a zip file
