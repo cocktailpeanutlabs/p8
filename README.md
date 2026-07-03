@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29)
 
 # Migrate to Open License Conda
 
@@ -869,3 +869,13 @@ The `PINOKIO_HOME/logs/info` folder is not really useful so removed it from logg
 There are no tabs anymore, just a single simple list with everything. Also the delete button is immediately visible when the context menu opens, so no need to navigate to "Files" tab to delete.
 
 ![media/context_menu.png](media/context_menu.png)
+
+## 7.5.29
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29)
+
+### Home context menu fix
+
+Previously clicking menu items from the home context menu would start the selected script but ALSO select the default script.
+
+The fix: Send to the "open without launching" view and run the selected script only. This means it will ONLY run the selected script and won't automatically run other scripts even after this script has finished running.
