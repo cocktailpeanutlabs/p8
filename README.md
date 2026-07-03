@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28)
 
 # Migrate to Open License Conda
 
@@ -824,3 +824,48 @@ Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27](htt
 ### do not print env variables in logs
 
 do not print environment variables in ~/pinokio/logs/shell/cleaned/index.txt and ~/pinokio/logs/shell/info/index.txt
+
+## 7.5.28
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28)
+
+### {{ready}}
+
+a new template variable that checks if a script is ready or not
+
+```
+{
+  "when": "{{ready('start.js')}}",
+  "method": "shell.run",
+  "params": {
+    "message": "python app.py"
+  }
+}
+```
+
+### sidebar hover view
+
+When the sidebar is collapsed, hovering your mouse to the left edge will display the sidebar drawer, and automatically collapse when moved away.
+
+![media/sidebar_hover.gif](media/sidebar_hover.gif)
+
+
+### persist sidebar toggle status
+
+The app pages used to remember the toggle state, but home and other pages did not reemmber the sidebar toggle state. Now once you collapse it will stay collapsed even when you navigate away and come back
+
+### Add explore button to the navbar
+
+Now the explore button is always visible regardless of which page you're on
+
+![media/global_explore_button.gif](media/global_explore_button.gif)
+
+### remove logs/info
+
+The `PINOKIO_HOME/logs/info` folder is not really useful so removed it from logging
+
+### refactor home context menu 
+
+There are no tabs anymore, just a single simple list with everything. Also the delete button is immediately visible when the context menu opens, so no need to navigate to "Files" tab to delete.
+
+![media/context_menu.png](media/context_menu.png)
