@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27)
 
 # Migrate to Open License Conda
 
@@ -815,3 +815,12 @@ Also the user can flip through sessions to check AND post the logs per session.
 ### Redaction for global logs page 
 
 The global logs page (which includes files like `state.json`, `stdout.json`, `system.json`, etc.) can now be redacted via privacy filter before creating a zip file
+
+
+## 7.5.27
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27)
+
+### do not print env variables in logs
+
+do not print environment variables in ~/pinokio/logs/shell/cleaned/index.txt and ~/pinokio/logs/shell/info/index.txt
