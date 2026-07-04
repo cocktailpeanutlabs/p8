@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30)
 
 # Migrate to Open License Conda
 
@@ -879,3 +879,19 @@ Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29](htt
 Previously clicking menu items from the home context menu would start the selected script but ALSO select the default script.
 
 The fix: Send to the "open without launching" view and run the selected script only. This means it will ONLY run the selected script and won't automatically run other scripts even after this script has finished running.
+
+## 7.5.30
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30)
+
+### a5ade7b: Windows Conda SSL cert cleanup
+
+Fixed a Windows Conda environment issue where `SSL_CERT_DIR` could stay set after Conda activation/deactivation.
+
+Pinokio now clears both `SSL_CERT_DIR` and Conda's internal marker so later commands do not inherit a bad SSL certificate directory. Also clears for `deactivate.d`.
+
+### 2e78d78: Conda install health check
+
+Pinokio already checked Conda package metadata to decide if Miniforge was installed correctly.
+
+Now it also runs the managed Conda executable with `conda --version`. This catches cases where the metadata exists but the actual Conda launcher is broken or missing.
