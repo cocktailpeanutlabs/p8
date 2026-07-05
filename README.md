@@ -912,3 +912,14 @@ running conda commands with buggy activate.d/deactivate.d may end up polluting t
 Added "Settings" to the context menu drawer.
 
 ![settings](media/settings_addition.png)
+
+## 7.5.41
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41)
+
+### app info dropdown
+
+Clicking the app info from the top nav, opens a dropdown that displays more info
+
+![media/app_info.png](media/app_info.png)
+
