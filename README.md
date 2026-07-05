@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41)
 
 # Migrate to Open License Conda
 
