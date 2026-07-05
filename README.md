@@ -902,9 +902,6 @@ Now it also runs the managed Conda executable with `conda --version`. This catch
 
 Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38)
 
-### Fix windows conda activation script bug
+### echo off for conda commands
 
-Conda and its packages inject activate.d and deactivate.d in every shell, but sometimes it can turn echo on and not turn it off, leading to the .bat shell script leaking out to being printed on the terminal instead of just running silently. Only happens on windows.
-
-Fix by running all conda commands in echo off mode `cmd /Q`
-
+running conda commands with buggy activate.d/deactivate.d may end up polluting the terminal by ending the terminal session with echo on, resulting in printing the literal script content instead of silently running, which could result in unnecessary messages. Fix by ensuring all conda commands run in echo off mode (`cmd /Q`)
