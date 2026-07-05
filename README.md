@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38)
 
 # Migrate to Open License Conda
 
@@ -895,3 +895,16 @@ Pinokio now clears both `SSL_CERT_DIR` and Conda's internal marker so later comm
 Pinokio already checked Conda package metadata to decide if Miniforge was installed correctly.
 
 Now it also runs the managed Conda executable with `conda --version`. This catches cases where the metadata exists but the actual Conda launcher is broken or missing.
+
+
+
+## 7.5.38
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38)
+
+### Fix windows conda activation script bug
+
+Conda and its packages inject activate.d and deactivate.d in every shell, but sometimes it can turn echo on and not turn it off, leading to the .bat shell script leaking out to being printed on the terminal instead of just running silently. Only happens on windows.
+
+Fix by running all conda commands in echo off mode `cmd /Q`
+
