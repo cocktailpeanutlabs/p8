@@ -898,10 +898,17 @@ Now it also runs the managed Conda executable with `conda --version`. This catch
 
 
 
-## 7.5.38
+## 7.5.39
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.38)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.39](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.39)
 
 ### echo off for conda commands
 
 running conda commands with buggy activate.d/deactivate.d may end up polluting the terminal by ending the terminal session with echo on, resulting in printing the literal script content instead of silently running, which could result in unnecessary messages. Fix by ensuring all conda commands run in echo off mode (`cmd /Q`)
+
+
+### Settings button in the home drawer
+
+Added "Settings" to the context menu drawer.
+
+![settings](media/settings_addition.png)
