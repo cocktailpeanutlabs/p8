@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.42](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.42)
 
 # Migrate to Open License Conda
 
@@ -923,3 +923,12 @@ Clicking the app info from the top nav, opens a dropdown that displays more info
 
 ![media/app_info.png](media/app_info.png)
 
+## 7.5.42
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.42](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.42)
+
+### better redaction and exclusion for global logs
+
+Now you can select how many lines to include from a log file, and which files to exclude from the final log report bundle.
+
+![media/logreport.png](media/logreport.png)
