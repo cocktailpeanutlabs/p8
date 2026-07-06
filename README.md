@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Download Pinokio 8.0.0 Candidate Beta
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.43](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.43)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51)
 
 # Migrate to Open License Conda
 
@@ -933,10 +933,31 @@ Now you can select how many lines to include from a log file, and which files to
 
 ![media/logreport.png](media/logreport.png)
 
-## 7.5.43
+## 7.5.44
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.43](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.43)
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.44](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.44)
 
 ### Cache privacy-filter model
 
 Cache the privacy-filter model in `~/pinokio/cache/privacy-filter`. Only downloads the first time it is used, from next time uses the downloaded model in the cache folder
+
+## 7.5.51
+
+Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51)
+
+### Home Server
+
+Properly support the "Home Server" feature in a user-friendly way so it's 1-click usable
+
+![media/homeserver.gif](media/homeserver.gif)
+
+
+Also accessible from the app rows:
+
+![media/share.gif](media/share.gif)
+
+### Do not allow backing out of download page
+
+Allowing back/forward buttons messes up with requirement install state so just get rid of those altogether so the worst case scenario the user can only click back to home.
+
+![media/downloadpage.png](media/downloadpage.png)
