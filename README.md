@@ -1,16 +1,25 @@
 ---
 layout: minimal
-title: Pinokio 8.0.0 Candidate Beta
-description: Release notes for Pinokio 8.0.0 Candidate Beta
+title: Pinokio 8.0.0
+description: Release notes for Pinokio 8.0.0
 permalink: /
 has_toc: false
 render_with_liquid: false
 section_nav_depth: 2
 ---
 
-# Download Pinokio 8.0.0 Candidate Beta
+# Pinokio 8
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51)
+<a href="https://www.youtube.com/watch?v=ovhlmYnqFbA"><img width="1672" height="941" alt="ChatGPT Image Jul 8, 2026, 11_20_56 AM" src="https://github.com/user-attachments/assets/a16fddd5-ffa8-45b6-879d-9f2bec2c06f3" /></a>
+
+1. ALL New UI
+2. Home Server
+3. Process Monitor
+4. Autolaunch
+5. Orchestration
+6. 1-Click Help
+7. Faster
+8. End-to-End Open License
 
 # Migrate to Open License Conda
 
@@ -794,7 +803,6 @@ The plugin page automatically closes the terminal after any of the tasks has fin
 
 ## 7.5.26
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.26)
 
 ### Network discovery fix
 
@@ -819,7 +827,6 @@ The global logs page (which includes files like `state.json`, `stdout.json`, `sy
 
 ## 7.5.27
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.27)
 
 ### do not print env variables in logs
 
@@ -827,7 +834,6 @@ do not print environment variables in ~/pinokio/logs/shell/cleaned/index.txt and
 
 ## 7.5.28
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.28)
 
 ### {{ready}}
 
@@ -872,7 +878,6 @@ There are no tabs anymore, just a single simple list with everything. Also the d
 
 ## 7.5.29
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.29)
 
 ### Home context menu fix
 
@@ -882,7 +887,6 @@ The fix: Send to the "open without launching" view and run the selected script o
 
 ## 7.5.30
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.30)
 
 ### a5ade7b: Windows Conda SSL cert cleanup
 
@@ -900,7 +904,6 @@ Now it also runs the managed Conda executable with `conda --version`. This catch
 
 ## 7.5.39
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.39](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.39)
 
 ### echo off for conda commands
 
@@ -915,7 +918,6 @@ Added "Settings" to the context menu drawer.
 
 ## 7.5.41
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.41)
 
 ### app info dropdown
 
@@ -925,7 +927,6 @@ Clicking the app info from the top nav, opens a dropdown that displays more info
 
 ## 7.5.42
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.42](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.42)
 
 ### better redaction and exclusion for global logs
 
@@ -935,7 +936,6 @@ Now you can select how many lines to include from a log file, and which files to
 
 ## 7.5.44
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.44](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.44)
 
 ### Cache privacy-filter model
 
@@ -943,7 +943,6 @@ Cache the privacy-filter model in `~/pinokio/cache/privacy-filter`. Only downloa
 
 ## 7.5.51
 
-Download at [https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51](https://github.com/peanutcocktail/pinokio/releases/tag/v7.5.51)
 
 ### Home Server
 
