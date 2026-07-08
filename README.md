@@ -21,6 +21,10 @@ section_nav_depth: 2
 7. Faster
 8. End-to-End Open License
 
+# Download
+
+Download here https://desktop.pinokio.co/
+
 # Migrate to Open License Conda
 
 ## 1. Miniconda => Miniforge
