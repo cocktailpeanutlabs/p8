@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Pinokio 8
 
-<a href="https://www.youtube.com/watch?v=ovhlmYnqFbA"><img width="1672" height="941" alt="ChatGPT Image Jul 8, 2026, 11_20_56 AM" src="https://github.com/user-attachments/assets/a16fddd5-ffa8-45b6-879d-9f2bec2c06f3" /></a>
+<a href="https://www.youtube.com/watch?v=ovhlmYnqFbA"><img width="1672" height="941" src="media/thumb.png"/></a>
 
 1. ALL New UI
 2. Home Server
