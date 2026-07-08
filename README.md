@@ -10,7 +10,7 @@ section_nav_depth: 2
 
 # Pinokio 8
 
-<a href="https://www.youtube.com/watch?v=ovhlmYnqFbA"><img width="1672" height="941" src="media/thumb.png"/></a>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ovhlmYnqFbA?si=BBMrAcnH-671SMy5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 1. ALL New UI
 2. Home Server
