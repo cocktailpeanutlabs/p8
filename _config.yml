@@ -1,10 +1,10 @@
 title: Pinokio 8.0.0
-description: Release notes for Pinokio 8.0.0 Candidate Beta
+description: Release notes for Pinokio 8.0.0
 theme: just-the-docs
 
-url: "https://betapeanut.github.io"
-baseurl: "/r"
-repository: betapeanut/r
+url: "https://cocktailpeanutlabs.github.io"
+baseurl: "/p8"
+repository: cocktailpeanutlabs/p8
 
 permalink: pretty
 lang: en-US
@@ -30,7 +30,7 @@ gh_edit_link: false
 
 aux_links:
   GitHub:
-    - "https://github.com/betapeanut/r"
+    - "https://github.com/cocktailpeanutlabs/p8"
 aux_links_new_tab: true
 
 plugins:
